@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://blog.sory.biz/about-me/</loc>
+    <lastmod>2018-01-04T20:39:09-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.sory.biz/posts/my-first-post/</loc>
+    <lastmod>2018-01-04T19:54:10-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.sory.biz/about/</loc>
+    <lastmod>2018-01-04T19:54:10-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.sory.biz/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.sory.biz/posts/</loc>
+    <lastmod>2018-01-04T19:54:10-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.sory.biz/</loc>
+    <lastmod>2018-01-04T20:39:09-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.sory.biz/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Sorry, Rawyer</title>
+    <link>http://blog.sory.biz/posts/</link>
+    <description>Recent content in Posts on Sorry, Rawyer</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Jan 2018 19:54:10 -0500</lastBuildDate>
+    
+	<atom:link href="http://blog.sory.biz/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My First Post</title>
+      <link>http://blog.sory.biz/posts/my-first-post/</link>
+      <pubDate>Thu, 04 Jan 2018 19:54:10 -0500</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/my-first-post/</guid>
+      <description>If I put something here, will the post show up on the page? Ah hah! I needed to add &amp;ldquo;type: post&amp;rdquo; to the header.</description>
+    </item>
+    
+  </channel>
+</rss>
