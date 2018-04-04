@@ -6,10 +6,20 @@
     <description>Recent content on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jan 2018 20:39:09 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 03 Apr 2018 21:26:03 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>My Actual First Post</title>
+      <link>http://blog.sory.biz/posts/actual-first-post/</link>
+      <pubDate>Tue, 03 Apr 2018 21:26:03 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/actual-first-post/</guid>
+      <description>In which I try to actually start a blog
+In 2010, my dad got me a domain name for my birthday. When he told me about it, he warned that he set it up in such a way as to motivate me to actually do something with my gift. There was some header text and a photo. If my memory serves me correctly, the header was &amp;ldquo;Rory&amp;rsquo;s Dad is amazing!&amp;rdquo; The text was red, the background was black.</description>
+    </item>
     
     <item>
       <title>About Me</title>
@@ -18,15 +28,6 @@
       
       <guid>http://blog.sory.biz/about-me/</guid>
       <description>Just fumbling around.</description>
-    </item>
-    
-    <item>
-      <title>My First Post</title>
-      <link>http://blog.sory.biz/posts/my-first-post/</link>
-      <pubDate>Thu, 04 Jan 2018 19:54:10 -0500</pubDate>
-      
-      <guid>http://blog.sory.biz/posts/my-first-post/</guid>
-      <description>If I put something here, will the post show up on the page? Ah hah! I needed to add &amp;ldquo;type: post&amp;rdquo; to the header.</description>
     </item>
     
     <item>

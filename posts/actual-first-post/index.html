@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>My Actual First Post</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="My Actual First Post">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="My Actual First Post">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="My Actual First Post">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/actual-first-post/">
+	<meta name="og:site_name" content="My Actual First Post">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>My Actual First Post <aside></aside></h1>
+	<p><em>In which I try to actually start a blog</em></p>
+
+<p>In 2010, my dad got me a domain name for my birthday. When he told me about it, he warned that he set it up in such a way as to motivate me to actually do something with my gift. There was some header text and a photo. If my memory serves me correctly, the header was &ldquo;Rory&rsquo;s Dad is amazing!&rdquo; The text was red, the background was black. The accompanying photo was a painting of a prairie with mountains in the distance. Were it not for the objects in the foreground, Bob Ross could&rsquo;ve painted it on his show. The foreground contained Chewbacca riding a giant squirrel and fighting Nazis.</p>
+
+<p>And so my first foray into web development consisted of using FileZilla to copy HTML and CSS files to an FTP server to be displayed on soryrawyer.com (RIP), owned via GoDaddy.</p>
+
+<p>About four years later, after finishing college, I tried again. Of my own free will, I set up a Heroku account, a node.js backend, and some weird assortment of frontend buffoonery. This time I put my horrendous design skills on display and created a virtual resume complete with stats from my last.fm profile. The GitHub repo may be gone, but I bet that Heroku project still exists somewhere.</p>
+
+<p>Another four years brings us to now. I&rsquo;m writing markdown, generating this site with <a href="https://gohugo.io/">Hugo</a>, using github pages to host my account, and Google Domains for the domain name.</p>
+
+<p>soryrawyer dot com is gone. This is the era of sory dot biz.</p>
+
+<p>Since 2010 I&rsquo;ve lived in Boston, Valley Forge, and New York City (where I am currently watching the Flyers lose to the Islanders in dramatic fashion). I&rsquo;ve finished college, lived at home for a brief period, and worked as a Data Analyst and Software Engineer (I-III) for a combined 3.75 years. My anxiety and depression started and/or got worse, then better (when I started going to therapy), then worse again (when I stopped going to therapy), then better again (when I started going to therapy again), then even better (when I started taking an SSRI).</p>
+
+<p>I started the SSRI in October 2017, heard of and then immediately applied to the Recurse Center probably around November 2017, was accepted to the Recurse Center in December 2017, gave notice that I was quitting my job in February 2018, left my job in March 2018, and started at the Recurse Center just yesterday, April 2nd, 2018.</p>
+
+<p>The last few months have seen me slowly revert to a pre-&ldquo;major depressive episode&rdquo; (not my words) state. No one told me that this would also mean a return to trying to start a blog.</p>
+
+<p>Over the years I&rsquo;ve written about things that I&rsquo;m doing (or not doing) in an attempt to reflect on my work. These were all private words, so I could make as much or as little sense as I wanted. I&rsquo;ve found the practice to be insightful and therapeutic. I&rsquo;ve also found it to easily, rapidly digress to amorphous, unintelligible word soup. There&rsquo;s a time and a place for both, but I need more of the former. I&rsquo;m a slow learner, and so I&rsquo;m finally following through on the idea my dad presented to me almost eight years ago: I gotta make this good, because people can see it now.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 3, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postsactual-first-post%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>
