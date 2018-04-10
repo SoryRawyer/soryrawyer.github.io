@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>There Must Be Some Mistake</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="There Must Be Some Mistake">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="There Must Be Some Mistake">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="There Must Be Some Mistake">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/some-mistake/">
+	<meta name="og:site_name" content="There Must Be Some Mistake">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>There Must Be Some Mistake <aside></aside></h1>
+	<p>In addition to being a novel by Frederick Barthelme, &ldquo;there must be some mistake&rdquo; is usually my first thought upon hearing that something good has happened to me. So it is with my ending up at the Recurse Center. RC is a strange place where people are happy and kind and encouraging and incredibly smart. Maybe not all of these things all at once all the time, but they&rsquo;re most things most of the time and it&rsquo;s truly remarkable.</p>
+
+<p>This was originally supposed to be a much larger post where I talked about leaving my job and discussed where things went wrong and things went right and in what ways I did/did not contribute to both, but after a few months of heavily outlining and &ldquo;back to the drawing board&rdquo;-ing I&rsquo;ve decided to just scrap my old work altogether and start over. The more modest scope of this post is going to be how I ended up applying to and starting a batch at RC.</p>
+
+<p><br />
+<br />
+Various attempts at reflection have put the start of my disillusionment with my career choice either in 2012, 2014, 2015, or 2016. It was either during my first internship, right after college, just after starting my first job, or during my second role at my first job. At some point, however, it became clear to me that I didn&rsquo;t like what I was doing. I didn&rsquo;t like getting up in the morning, I didn&rsquo;t like what I did after I got up in the morning, and I didn&rsquo;t like going to bed at night knowing I&rsquo;d have to get up the next morning.</p>
+
+<p>So I started looking for my &ldquo;next step&rdquo;. I sent out applications, went to interviews, talked to college professors, and kept in touch with old coworkers. I failed interviews and bought &ldquo;Cracking the Coding Interview&rdquo;. I started side projects and online courses and bought starter kits and opened dozens of browser tabs of blog posts with the word &ldquo;tutorial&rdquo; in the title. I re-interviewed with companies and re-failed.<br />
+As you&rsquo;re probably realizing, I didn&rsquo;t put much effort into all of this and, as a result, I wasn&rsquo;t making any progress. I had no desire to crack the coding interview. I was already a software engineer, and I didn&rsquo;t like it. Why should I put effort into finding a different environment in which to be miserable?</p>
+
+<p><br />
+<em>(At this point I feel like I should say something about my mental health, but that feels like a cop-out, so I&rsquo;ll just mention that my depression and anxiety definitely played a role in all this but I&rsquo;m worried about this blog putting my therapist out of business so I&rsquo;ll leave it at that)</em></p>
+
+<p><br />
+And so I set to work on my new problem: what do I do now? My search yielded the following motto: any which way but backwards. I wanted to move forward or laterally, just not backwards. I still liked programming (I think), but software engineering might not be the right &ldquo;next thing&rdquo;. Graduate school could scratch the itch of learning more about CS, but it&rsquo;s a huge investment just to shake up my career options (though <a href="https://tisch.nyu.edu/itp">NYU&rsquo;s ITP</a>, came really close with it&rsquo;s tagline of &ldquo;art school for engineers&rdquo;).</p>
+
+<p>Right in the middle of refining my mental model of the ideal jumping off point, my coworker shared the <a href="https://www.recurse.com/manual">Recurse Center social rules</a> with our team. I spent the next couple hours reading everything I could about RC while simultaneously trying not to jump to the conclusion of &ldquo;this is it!&rdquo; It was really as if someone had taken all my thoughts about where I wanted to go, improved upon them, and then started it years ago. I think it was a few weeks later that I had sent in my application, and a few weeks after that when I received an email that said I was allowed in.</p>
+
+<p>My headspace during the time between my admission and now, and especially between my start date (last Monday) and now, can mostly be summed up as &ldquo;there must be some mistake&rdquo;. That this community exists and that I&rsquo;m somehow allowed to be a part of it seems too good to be true. It&rsquo;s only a week in and I&rsquo;ve gotten more done than I have in a very long time. I&rsquo;ve remained indecisive as to how I&rsquo;m going to spend my time, but luckily everyone&rsquo;s got something so incredibly cool that they&rsquo;re working on (and willing to pair on) that I don&rsquo;t need to wait long until someone motivates me to get started on something again. In the past week I&rsquo;ve gotten started on an MP3 decoder, a media player, implementing CASPaxos, and figuring out emacs. I still worry constantly about being productive and fighting indecision and staying motivated and seeing projects through to the end, but I&rsquo;m at least starting to feel like there&rsquo;s no mistake.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 7, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postssome-mistake%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/actual-first-post/">← My Actual First Post</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>
