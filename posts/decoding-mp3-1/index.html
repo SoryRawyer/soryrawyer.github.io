@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/decoding-mp3-1/">
+	<meta name="og:site_name" content="Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now <aside></aside></h1>
+	<p><em>In which I find out that I don&rsquo;t know how MP3 decoding works</em></p>
+
+<p>Coming into the Recurse Center, I thought I&rsquo;d found a solid project: move my music and videos into cloud storage and create a media player that can move stuff to and from local disk without the user knowing or caring. This is similar to Spotifys approach of letting users keep certain media on their device while streaming everything else. I felt this had the advantage of being a doable project while opening enough rabbit holes to keep me occupied for three months. Two notable areas of interest were:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- How does streaming work? What&rsquo;s RTTP? What&rsquo;s HLS?<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- How much can I learn about Music Information Retrieval in three months?</p>
+
+<p><br />
+Physically, I am near-sighted, but mentally&hellip; probably neither near- nor far-sighted. After 26 years, I still don&rsquo;t recognize this in myself. Despite dreaming up these lofty goals for myself, I was still surprised when I started to write my program and followed roughly this sequence of events:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. open a file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. &hellip;?</p>
+
+<p>I didn&rsquo;t even know what happened after I called <code>open()</code>! After all this, I was foiled by needing to play MP3s. I&rsquo;d used Python to analyze WAV files, but all I&rsquo;ve got to listen to are MP3s! Googling &ldquo;Python play MP3s&rdquo; and &ldquo;Python decode MP3s&rdquo; and &ldquo;why am I an idiot?&rdquo; yielded a few useful results, but while looking at the various libraries the internet threw my way I ultimately I came across a common operation:</p>
+
+<p><code>subprocess.Popen('ffmpeg -i your_mp3.mp3 your_new_wav.wav', ...)</code></p>
+
+<p>For those unfamiliar with the above command, it&rsquo;s Python&rsquo;s way of running a new process from within a Python program. The first argument is essentially the same as you&rsquo;d use on the command line and ffmpeg is a program which, among many many other things, converts audio files from one format to another. Those scoundrels were all just converting MP3s to WAVs!</p>
+
+<p><br />
+And so my first real project is to decode MP3s. Volumes 2-? of this blog series are forthcoming, but in order to write them I need to know what I&rsquo;m doing. I (thought I) knew the basics: frames, FFT, cutting out frequencies humans can&rsquo;t hear (sorry dogs), Huffman encoding. What I soon realized was that I didn&rsquo;t know how those things fit together, and also that those are by far not the only components of MP3 decoding.</p>
+
+<p>I&rsquo;ve started work on <a href="https://github.com/SoryRawyer/mp3po">MP-3PO</a>, an MP3 decoder in pure Python. Luckily, a fellow Recurser also happens to be the patron saint of all things audio/visual codecs, and they introduced me to tools that made life in the weeds of examining bit streams much, much more enjoyable. The latest revelation was that I could use <a href="https://mediaarea.net/MediaConch">MediaConch</a> to get the parsed values of all the MP3 headers and side information from an MP3. I almost cried.</p>
+
+<p>I now know a little more about how MP3s are made. Hopefully later this week I&rsquo;ll have enjoyable sound coming out of my speakers.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 10, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postsdecoding-mp3-1%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/some-mistake/">← There Must Be Some Mistake</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>
