@@ -126,7 +126,7 @@ The frame&rsquo;s side information contains the scaling factors for each granule
 <p>Last but not least, there&rsquo;s the main data. Once we have all the details from the header and size information, reading this stuff should, in theory, be straightforward. However, my MP3 decoder is 1) not done and 2) screws up specifically at decoding the main data, so either I&rsquo;m not good at straightforward tasks or reading the main data isn&rsquo;t straightfoward. Maybe a little of both. At the moment there&rsquo;s really only one interesting aspect of the main data that I can talk about, and that&rsquo;s the <em>bit reservoir</em>. For reasons that aren&rsquo;t entirely clear to me, while so much else is variable (scaling factors, bit rate), the number of time samples per frame is constant. Sometimes these samples can be encoded using N bits, sometimes they require M bits, and that means the main data can end wherever. But instead of starting to write the next frame header, the MP3 encoder will start to write the next frames <em>main data</em>. This is the essence of the bit reservoir. Where one main data ends, another begins, and not a single bit goes to waste. I can&rsquo;t say I understand why the MP3 specification goes this route instead of just starting the next header, but the spec is $160 and I&rsquo;m unemployed, so wild conjecture is all I&rsquo;ve got.</p>
 
 <p><br />
-So that&rsquo;s what&rsquo;s in an MP3. Sorry for explaining it poorly, but I poorly is the only way I understand it.</p>
+So that&rsquo;s what&rsquo;s in an MP3. Sorry for explaining it poorly, but poorly is the only way I understand it.</p>
 
 </div>
 
