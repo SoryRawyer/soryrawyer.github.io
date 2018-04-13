@@ -6,10 +6,19 @@
     <description>Recent content on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Apr 2018 23:31:19 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 11 Apr 2018 22:08:45 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream</title>
+      <link>http://blog.sory.biz/posts/decoding-mp3-2/</link>
+      <pubDate>Wed, 11 Apr 2018 22:08:45 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/decoding-mp3-2/</guid>
+      <description>The other day, I wrote about the process of how I arrived at decoding MP3s in Python. Today, I&amp;rsquo;ve decided to create a rough outline for the next few MP3 posts. The idea is to keep the next few posts light. I&amp;rsquo;m just going to pull from my notes, skip fact-checking, and hit &amp;ldquo;post&amp;rdquo;. I&amp;rsquo;ll start today with a very basic outline of what MP3s are made of. I&amp;rsquo;ll save the more intricate details for later posts, by which time I hope to actually understand what I&amp;rsquo;m saying.</description>
+    </item>
     
     <item>
       <title>Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now</title>

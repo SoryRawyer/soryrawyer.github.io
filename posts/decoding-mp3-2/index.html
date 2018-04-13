@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/decoding-mp3-2/">
+	<meta name="og:site_name" content="Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream <aside></aside></h1>
+	
+
+<p>The other day, I wrote about the process of how I arrived at decoding MP3s in Python. Today, I&rsquo;ve decided to create a rough outline for the next few MP3 posts. The idea is to keep the next few posts light. I&rsquo;m just going to pull from my notes, skip fact-checking, and hit &ldquo;post&rdquo;. I&rsquo;ll start today with a very basic outline of what MP3s are made of. I&rsquo;ll save the more intricate details for later posts, by which time I hope to actually understand what I&rsquo;m saying.</p>
+
+<p>First, I&rsquo;m going to try and quickly give you a sense of <em>how</em> MP3s become what they are.<br />
+A piece of audio is split into chunks (aka <em>frames</em>) and the <em>discrete cosine transform</em> converts these time-domain samples into frequency-domain samples. At this point we have the component frequencies of the audio as well as how much of each frequency is present in the signal. To put it another way, if the audio data was a fully-cooked meal, the DCT returns the ingredient list. These frequency samples are arrays of floating-point numbers.<br />
+It&rsquo;s around here that the &ldquo;lossy&rdquo;-ness of MP3 comes into play, and it does so in a couple ways. One way is by flat-out removing certain samples. Frequencies above ~20kHz and below ~20Hz are removed, and silent/quiet sections of audio are encoded using fewer bits. These are both fairly intuitive — if we can&rsquo;t hear it, don&rsquo;t encode it. Another introduction of loss is a little more subtle. To encode these samples using fewer bits, certain values are <em>quantized</em>, meaning multiplied by a certain number (aka a <em>scaling factor</em>) to get a 16-bit integer. Whatever fractional component is still present is dropped, thereby minimizing loss while increasing compression.<br />
+After all this happens, the values are Huffman encoded and written at wherever the last section of audio data was written.</p>
+
+<p>Hopefully that overview balanced brevity and depth. I certainly left a lot out. At the very least I think I mentioned all the terms I wanted to.</p>
+
+<p></p>
+
+<h2 id="basic-sections">Basic Sections</h2>
+
+<p>At the highest level, MP3s can be broken out into two parts: ID3 tags and the actual MP3 frames. ID3 tags contain metadata that&rsquo;s useful for the listener (artist, track, and album names, among other things), but it&rsquo;s of no importance to the sound. So in the context of decoding MP3 data, ID3 tags can be skipped. That leaves the bulk of the file, which is the MP3 frames themselves.</p>
+
+<h3 id="mp3-frames">MP3 Frames</h3>
+
+<p>Each frame has three main components: a header, side information, and main data. The header and side information contain details on how to read the main data and the main data contains the actual quantized, Huffman-encoded frequency samples that will someday turn into music for your ears.</p>
+
+<h3 id="frame-headers">Frame Headers</h3>
+
+<p>The frame header contains information on the number of channels, bit rate, sampling frequency, and a few other fields that are important for decoding the data around it. The bit rate and sampling frequency can tell you how many bytes are in each frame. The number of channels will tell you how many chunks of things you&rsquo;ll need to decode per frame (lots of <code>for i in range(0, channels)</code> stuff going on).</p>
+
+<h3 id="side-information">Side Information</h3>
+
+<p>Side information contains more information about how to decode the main data. The important information here is broken up into <em>granules</em>, which up to this point I&rsquo;ve thought of as &ldquo;groups of bytes&rdquo;. So far my thinking has not needed to evolve, so I will continue to think of granules as just groups of bytes in the main data that can be decoded together. I will try to note when/if this mental model needs updating in later posts.
+The frame&rsquo;s side information contains the scaling factors for each granule and channel, whether or not those scaling factors are shared, which Huffman table to use to decode the main data (there are 15 different tables to choose from), and some offset information (e.g. — where to start reading and how much to read).</p>
+
+<h3 id="main-data">Main Data</h3>
+
+<p>Last but not least, there&rsquo;s the main data. Once we have all the details from the header and size information, reading this stuff should, in theory, be straightforward. However, my MP3 decoder is 1) not done and 2) screws up specifically at decoding the main data, so either I&rsquo;m not good at straightforward tasks or reading the main data isn&rsquo;t straightfoward. Maybe a little of both. At the moment there&rsquo;s really only one interesting aspect of the main data that I can talk about, and that&rsquo;s the <em>bit reservoir</em>. For reasons that aren&rsquo;t entirely clear to me, while so much else is variable (scaling factors, bit rate), the number of time samples per frame is constant. Sometimes these samples can be encoded using N bits, sometimes they require M bits, and that means the main data can end wherever. But instead of starting to write the next frame header, the MP3 encoder will start to write the next frames <em>main data</em>. This is the essence of the bit reservoir. Where one main data ends, another begins, and not a single bit goes to waste. I can&rsquo;t say I understand why the MP3 specification goes this route instead of just starting the next header, but the spec is $160 and I&rsquo;m unemployed, so wild conjecture is all I&rsquo;ve got.</p>
+
+<p><br />
+So that&rsquo;s what&rsquo;s in an MP3. Sorry for explaining it poorly, but I poorly is the only way I understand it.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 11, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postsdecoding-mp3-2%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/decoding-mp3-1/">← Decoding MP3s, Volume 1: I Guess I&#39;m Decoding MP3s Now</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>
