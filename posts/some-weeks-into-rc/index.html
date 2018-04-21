@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Some Number of Weeks Into RC, Part 1: 3</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Some Number of Weeks Into RC, Part 1: 3">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Some Number of Weeks Into RC, Part 1: 3">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Some Number of Weeks Into RC, Part 1: 3">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/some-weeks-into-rc/">
+	<meta name="og:site_name" content="Some Number of Weeks Into RC, Part 1: 3">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Some Number of Weeks Into RC, Part 1: 3 <aside></aside></h1>
+	<p>My batch at RC (Spring 2) started three weeks ago. I knew my experience at and with RC would fluctuate wildly. The community, the space, what other people are working on, what I&rsquo;m working on, my reactions to and feelings about each of those things, these are all constantly in motion. I&rsquo;m not sure I&rsquo;m at a point to make much sense of it, but I at least feel somewhat prepared to do some introspection. I feel less prepared to put said introspection on the internet, but as I mentioned to another Recurser this week, it&rsquo;s important for me to write things in a way that&rsquo;s meant to be read, as opposed to writing something because it&rsquo;s important for it to have been written.<br />
+And so I&rsquo;ve reached the point where I feel I should organize my thoughts on RC, as opposed to letting them drain out of my head into the unintelligible, amorphous word soup container that is the single Google doc that contains my journal (side note: happy first birthday, journal).</p>
+
+<p>For me, the past three weeks have seen unusual bursts of productivity followed by usual bursts of lack of productivity. I&rsquo;ve worried about talking too much and talking too little, spending too much time at RC and not spending enough time at RC. I&rsquo;ve started decoding MP3s, learning about consensus protocols, learning Rust, and learning Pure Data. I&rsquo;ve continued to hope that I can learn digital signal processing via osmosis. I&rsquo;ve continued to think that I should do something with the Arduino board in my apartment. I heard about librosa and promptly did nothing with it. I created a bookmark hierarchy that grows in complexity every day. At no point in the last three weeks did I really feel all that successful about programming.</p>
+
+<p>All of that was to be expected (except the productivity stuff). What I didn&rsquo;t expect was that being around Recursers for 8-10 hours a day doesn&rsquo;t feel as draining as I thought it would. I&rsquo;ve paired with folks fairly frequently and gone on randomly-paired coffee runs. The chat thread about 80s Japanese pop albums started.<br />
+I don&rsquo;t think I&rsquo;ve enjoyed being a part of something as much as I have here. I know this is already bordering on being overly sappy, but everyone here is geniunely amazing. My anxiety surrounding whether or not I could possibly be accepted into this community, despite <em>literally receiving an acceptance email</em>, is kinda starting to dissipate.</p>
+
+<p>By now I&rsquo;ve somewhat betrayed the start of this post by avoiding any kind of larger &ldquo;point&rdquo; or general sense of having organized my thoughts, but that also feels like a kind of accurate reflection of my last three weeks. There&rsquo;s no point to anything that I&rsquo;m doing. I&rsquo;ve spent hours getting my computer to generate cosine waves, multiply them by other cosine waves, and output some thoroughly unpleasant sounds. I&rsquo;m just jumping from one idea to the next, based on looking around, thinking &ldquo;that person&rsquo;s doing something cool, maybe I can do that too&rdquo;, and then doing that.</p>
+
+<p>This wasn&rsquo;t the piece of directed, organized writing I expected, but like the rest of the things I&rsquo;ve done at RC, I&rsquo;m just gonna shrug, move on, and get back to it later.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 21, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postssome-weeks-into-rc%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/decoding-mp3-2/">← Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>

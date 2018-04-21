@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Apr 2018 22:08:45 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 21 Apr 2018 15:35:13 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Some Number of Weeks Into RC, Part 1: 3</title>
+      <link>http://blog.sory.biz/posts/some-weeks-into-rc/</link>
+      <pubDate>Sat, 21 Apr 2018 15:35:13 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/some-weeks-into-rc/</guid>
+      <description>My batch at RC (Spring 2) started three weeks ago. I knew my experience at and with RC would fluctuate wildly. The community, the space, what other people are working on, what I&amp;rsquo;m working on, my reactions to and feelings about each of those things, these are all constantly in motion. I&amp;rsquo;m not sure I&amp;rsquo;m at a point to make much sense of it, but I at least feel somewhat prepared to do some introspection.</description>
+    </item>
     
     <item>
       <title>Decoding MP3s, Volume 2: A Portrait of the Audio as a Compressed Bit Stream</title>
