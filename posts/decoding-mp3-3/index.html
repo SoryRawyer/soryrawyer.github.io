@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/decoding-mp3-3/">
+	<meta name="og:site_name" content="Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need <aside></aside></h1>
+	<p>I&rsquo;ve decided to abandon my project to write an MP3 decoder. This is the most significant project that I&rsquo;ve officially declared myself &ldquo;done&rdquo; with at RC, and as such I feel I need to justify the decision to myself. By &ldquo;most significant&rdquo; I really mean &ldquo;spent more than a couple hours on&rdquo;, but while at RC it seems important to have a clear sense of what it takes for me to consider myself being &ldquo;done&rdquo; with something. At the risk of overgeneralizing, I think for a lot of people the most important question that needs an answer is &ldquo;did I learn something?&rdquo;. A finished product is necessary for showing, but it isn&rsquo;t necessary for learning, and part of what makes RC feel so refreshing (to me, at least) is that it&rsquo;s a rare place where learning is preferred to showing. It&rsquo;s a brief respite from the pressure to exchange a fruit of labor for money.</p>
+
+<p>So I feel fine and not at all uncomfortable with my decision to kill MP-3PO. My favorite name for a project is now wasted on something that will almost certainly never see the light of day.</p>
+
+<p>One obvious reason I&rsquo;m deciding to abandon the project is that I couldn&rsquo;t get the dang thing to work. The specification is vague (and costs money) and leaves open the (quite realized) potential for different encoders to behave differently. To test my code, I used a combination of <a href="https://mediaarea.net/MediaConch">MediaConch</a> and <a href="https://github.com/hajimehoshi/go-mp3">other</a> <a href="https://github.com/FlorisCreyf/mp3-decoder">mp3</a> <a href="http://blog.bjrn.se/2008/10/lets-build-mp3-decoder.html">decoders</a>, and while they were indispensable resources in learning how the MP3 codec works, I kept getting different information about the files I was trying to decode. I would get different header values, side information values, and even information on where frames started and ended wouldn&rsquo;t align.<br />
+Another source of frustration was the source code I was reading. I know enough of Golang to understand that example, but I don&rsquo;t know C++ or Haskell, the other two languages I saw examples for. Then, in digging into the C and assembly that comprises mpg123, I started to understand why so many libraries in higher-level languages rely on these libraries. MP3 decoding is a messy, complicated, and pretty thoroughly solved affair.</p>
+
+<p>Another thing I learned while researching audio codecs is that each popular music service uses something different, and none of them use MP3. Spotify uses Ogg Vorbis (my new favorite thing to say), except in web browsers where it uses AAC. Apple uses m4p, a DRM-laden version of m4a, which is based on AAC. Bandcamp will let you download a bunch of different formats.<br />
+Some of these formats have native decoders in certain languages, some don&rsquo;t. But you know what will decode them? Some C library written by a team of people over the course of decades. Not some idiot who wanted to work on it because he was amused by the name he gave his project.</p>
+
+<p>And so the more I learned, the more a certain point was driven home: these implementations aren&rsquo;t just good, they&rsquo;re good enough.</p>
+
+<p>I feel confident that I&rsquo;m ending my MP3 adventure at the right point. I just wanted a better way to store and play my music, and so I&rsquo;m turning my attention back to <a href="https://github.com/SoryRawyer/monty">monty</a>.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written April 25, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postsdecoding-mp3-3%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/some-weeks-into-rc/">← Some Number of Weeks Into RC, Part 1: 3</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>

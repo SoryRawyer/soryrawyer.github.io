@@ -6,10 +6,19 @@
     <description>Recent content on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Apr 2018 15:35:13 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 25 Apr 2018 10:10:52 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need</title>
+      <link>http://blog.sory.biz/posts/decoding-mp3-3/</link>
+      <pubDate>Wed, 25 Apr 2018 10:10:52 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/decoding-mp3-3/</guid>
+      <description>I&amp;rsquo;ve decided to abandon my project to write an MP3 decoder. This is the most significant project that I&amp;rsquo;ve officially declared myself &amp;ldquo;done&amp;rdquo; with at RC, and as such I feel I need to justify the decision to myself. By &amp;ldquo;most significant&amp;rdquo; I really mean &amp;ldquo;spent more than a couple hours on&amp;rdquo;, but while at RC it seems important to have a clear sense of what it takes for me to consider myself being &amp;ldquo;done&amp;rdquo; with something.</description>
+    </item>
     
     <item>
       <title>Some Number of Weeks Into RC, Part 1: 3</title>
