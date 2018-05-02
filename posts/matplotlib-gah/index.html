@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Installing Matplotlib</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Installing Matplotlib">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Installing Matplotlib">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Installing Matplotlib">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/matplotlib-gah/">
+	<meta name="og:site_name" content="Installing Matplotlib">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Installing Matplotlib <aside></aside></h1>
+	<p>Just how good is MP3, anyway? I wondered this during my recent struggle with decoding MP3 files. File formats are chosen based on tradeoffs, and with digital media the tradeoffs tend to coalesce around two variables: quality and size. Inspired by a few recent experiments at RC to visualize data loss in digital media, I wanted to answer this question for myself. My idea is to compare the spectrograms of different audio formats to get a sense of which frequencies are being left out by codec compression techniques. From there, it might be possible to visualize (or hear) the data left behind. It&rsquo;s an interesting task, and I&rsquo;m eager to tackle it.</p>
+
+<p>But this post isn&rsquo;t about spectrograms or compression or anything fancy. This is about installing matplotlib.</p>
+
+<p>I want to write a program to compute the spectrogram of a piece of audio. To do so, it&rsquo;d be helpful to <em>see</em> the spectrogram, if for no reason other than to sanity-check a major component of the project (the whole &ldquo;generating a spectrogram&rdquo; part). I googled &ldquo;python spectrogram&rdquo;, clicked the <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.spectrogram.html">first link</a>, fired up my Python interpreter, and tapped away at the keyboard. You can probably guess where I got stuck.</p>
+
+<pre><code class="language-python">~/d/python-scratch  $ python -c 'import matplotlib.pyplot as plt'
+Traceback (most recent call last):
+  File &quot;&lt;string&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;/Users/rorysawyer/.pyenv/versions/3.6.3/lib/python3.6/site-packages/matplotlib/pyplot.py&quot;, line 115, in &lt;module&gt;
+    _backend_mod, new_figure_manager, draw_if_interactive, _show = pylab_setup()
+  File &quot;/Users/rorysawyer/.pyenv/versions/3.6.3/lib/python3.6/site-packages/matplotlib/backends/__init__.py&quot;, line 62, in pylab_setup
+    [backend_name], 0)
+  File &quot;/Users/rorysawyer/.pyenv/versions/3.6.3/lib/python3.6/site-packages/matplotlib/backends/backend_macosx.py&quot;, line 17, in &lt;module&gt;
+    from matplotlib.backends import _macosx
+RuntimeError: Python is not installed as a framework. The Mac OS X backend will not be able to function correctly if Python is not installed as a framework. See the Python documentation for more information on installing Python as a framework on Mac OS X. Please either reinstall Python as a framework, or try one of the other backends. If you are using (Ana)Conda please install python.app and replace the use of 'python' with 'pythonw'. See 'Working with Matplotlib on OSX' in the Matplotlib FAQ for more information.
+</code></pre>
+
+<p>Python&rsquo;s dependency management is <a href="https://xkcd.com/1987/">officially a joke</a>, but still, this is a bit of a doozy. From what I can tell, matplotlib.pyplot was&hellip; not imported.</p>
+
+<p>At the time of this error, I was using <a href="https://github.com/pyenv/pyenv">pyenv</a> and <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a> to manage Python stuff for me. I haven&rsquo;t had to maintain a Python codebase since 2015, and at that time I was using one version of Python and virtualenv and that worked out just fine. I threw pyenv and pyenv-virtualenv on my computer earlier this year and they&rsquo;ve also been working out just fine (until now). Pyenv is just managing my Python versions for me, but there is precedent for <a href="https://matplotlib.org/faq/osx_framework.html#pyenv">extra setup steps</a> needed to run matplotlib so I fired up pyenv-virtualenv to try and have a clean slate to work from.</p>
+
+<p>I then realized that I had never set up pyenv-virtualenv correctly. Earlier this year I installed <a href="https://fishshell.com/">fish shell</a>. It seemingly has all the things I liked about zsh, but now every shell script I come across needs a few character changes to run properly. Following the instructions to get fish shell to cooperate didn&rsquo;t work on the first try, so I thought I&rsquo;d try out Python&rsquo;s endorsement for dependency management: <a href="https://github.com/pypa/pipenv">pipenv</a>.</p>
+
+<p>Based on the few minutes I spent installing pipenv, verifying that it installed properly, and then fumbling around with it, I feel confident that pipenv will work out just fine. I still ran into the error of matplotlib needing a &ldquo;framework version of Python&rdquo; (whatever that is), so pipenv was at least as good as pyenv and pyenv-virtualenv. What really changed my opinion about pipenv was googling <code>pipenv matplotlib</code>. While searching <code>pyenv matplotlib</code> yielded links to github issues with comments like &ldquo;all I had to do was add this one line to my .bash_profile&rdquo;, the pipenv search yielded <a href="https://github.com/pypa/pipenv/issues/754">this github issue</a>, which linked to <a href="https://github.com/JuliaPy/PyCall.jl/issues/218#issuecomment-267558858">this comment on  another github issue</a>, which said to &ldquo;add this one line to your ~/.matplotlib/matplotlibrc file&rdquo;. I created that file, added that line, and:</p>
+
+<pre><code class="language-shell">(python-scratch-mAt2ZSfq)  (python-scratch-mAt2ZSfq)  ~/d/python-scratch  $ python -c 'import matplotlib.pyplot as plt'
+(python-scratch-mAt2ZSfq)  (python-scratch-mAt2ZSfq)  ~/d/python-scratch  $
+</code></pre>
+
+<p>Now that I had fixed my problem, it was time to figure out what was wrong. Matplotlib relies on a <a href="https://matplotlib.org/faq/usage_faq.html#what-is-a-backend">backend</a>, which I think is a specific set of capabilities based on the use case in which matplotlib finds itself. Matplotlib is sometimes embedded into GUIs and sometimes called from the command line. In a way to make the library a little more portable, the public API (which they call the &ldquo;frontend&rdquo;) is separate from the code that needs to render images (this is the &ldquo;backend&rdquo;). Thinking this through, it makes a lot of sense, although I&rsquo;m not sure why I only had this issue with the pyplot module.<br />
+In short, matplotlib.pyplot needs a backend and I wasn&rsquo;t telling it which one to use.</p>
+
+<p>However, when I started this journey, I wasn&rsquo;t thinking of this as an issue with matplotlib. I thought this was an issue with Python&rsquo;s dependency management, or my local Python setup, or some third thing I didn&rsquo;t know about but assumed resided within the hornets nest of Python setups and dependency management.</p>
+
+<p>Is there something to be learned here? I learned a little bit more about how matplotlib is structured. I learned that pipenv is ok. I might have a cleaner Python setup out of all of this. Mostly, though, I think the lessons are 1) don&rsquo;t underestimate the task at hand and 2) don&rsquo;t let initial feelings/perceptions/reactions guide the whole bug search. I incorrectly assumed that this issue was about dependency management. Dependency management is one of my least favorite programming issues. As a result, I showed this issue no respect and received none in return. At least I got a working matplotlib installation out of it.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written May 2, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postsmatplotlib-gah%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/decoding-mp3-3/">← Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>

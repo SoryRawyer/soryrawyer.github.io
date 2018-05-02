@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 Apr 2018 10:10:52 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 02 May 2018 01:17:34 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Installing Matplotlib</title>
+      <link>http://blog.sory.biz/posts/matplotlib-gah/</link>
+      <pubDate>Wed, 02 May 2018 01:17:34 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/matplotlib-gah/</guid>
+      <description>Just how good is MP3, anyway? I wondered this during my recent struggle with decoding MP3 files. File formats are chosen based on tradeoffs, and with digital media the tradeoffs tend to coalesce around two variables: quality and size. Inspired by a few recent experiments at RC to visualize data loss in digital media, I wanted to answer this question for myself. My idea is to compare the spectrograms of different audio formats to get a sense of which frequencies are being left out by codec compression techniques.</description>
+    </item>
     
     <item>
       <title>Decoding MP3s, Volume 3: I Think I&#39;ve Got What I Need</title>
