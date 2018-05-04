@@ -6,10 +6,20 @@
     <description>Recent content on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 May 2018 01:17:34 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 04 May 2018 10:34:42 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Another Tangent: Trying to Make a Theremin</title>
+      <link>http://blog.sory.biz/posts/theremini-1/</link>
+      <pubDate>Fri, 04 May 2018 10:34:42 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/theremini-1/</guid>
+      <description>I&amp;rsquo;ve finally created something tangible. So far, my definition of success at RC has been amorphous and open-ended: if I&amp;rsquo;ve learned, I&amp;rsquo;ve succeeded. That hasn&amp;rsquo;t changed, but I didn&amp;rsquo;t realize how much I missed seeing (or, in this case, hearing) real output from something I wrote.
+My idea for this project was to build a theremin. At its simplest, a theremin is an electronic instrument that produces a sine wave based on the position of a players hands with respect to two antennae.</description>
+    </item>
     
     <item>
       <title>Installing Matplotlib</title>

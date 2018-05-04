@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Another Tangent: Trying to Make a Theremin</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Another Tangent: Trying to Make a Theremin">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Another Tangent: Trying to Make a Theremin">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Another Tangent: Trying to Make a Theremin">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/theremini-1/">
+	<meta name="og:site_name" content="Another Tangent: Trying to Make a Theremin">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Another Tangent: Trying to Make a Theremin <aside></aside></h1>
+	
+
+<p>I&rsquo;ve finally created something tangible. So far, my definition of success at RC has been amorphous and open-ended: if I&rsquo;ve learned, I&rsquo;ve succeeded. That hasn&rsquo;t changed, but I didn&rsquo;t realize how much I missed seeing (or, in this case, hearing) real output from something I wrote.<br />
+My idea for this project was to build a theremin. At its simplest, a theremin is an electronic instrument that produces a sine wave based on the position of a players hands with respect to two antennae. One antenna controls the amplitude of the wave (the volume of the sound) and the other controls the frequency (or pitch). I decided my basic approach would be to buy two IR sensors, hook em up to an arduino, generate a sine wave using a programming language of my choice, read in the data from the arduino and use the output from the sensors to shape the wave. Although this approach is pretty close to the end result, the means by which I got there changed significantly throughout this process.</p>
+
+<h3 id="initial-inspiration">Initial inspiration</h3>
+
+<p>The idea to do this originally came from messing around with <a href="https://puredata.info/">Pure Data</a>. Pure Data, and its commercial counterpart <a href="https://cycling74.com/">Max/MSP</a>, are essentially visual programming languages for digital signal processing. They can be used for generating audio (or video) or to manipulate input streams of audio (or video), among many other things. Pure Data (and the set of exentions to Max that became MSP) is written by Miller S. Puckette, who has a number of recorded courses available on <a href="http://msp.ucsd.edu/syllabi/index.htm">his website</a>.<br />
+I&rsquo;ve always wanted to know more about Pd and Max, and since RC is the time to scratch your itches I decided I would dig in and try to make some noise. I started watching the videos for Mr. Puckette&rsquo;s course <a href="http://msp.ucsd.edu/syllabi/171.11w/index.htm">Computer Music 1</a>. After a few videos, the class had a working oscillator in Pd with controls for the amplitude and frequency of the generated wave. Here&rsquo;s a picture of the Pd &ldquo;patch&rdquo; from the class:
+<img src="../../static/pd_oscillator_amp_freq.png" alt="Pure Data patch controlling the amplitude and frequency of a wave; source: http://msp.ucsd.edu/syllabi/171.11w/1.06/4.ampfrequency.pd" /></p>
+
+<p>I saw this patch and thought &ldquo;hey, since Pure Data is so good at taking external input, maybe I could hook up an arduino and make a theremin!&rdquo; After some searching, the most promising find was pduino. This is a library to model arduino connections Pd objects. It was last updated in 2012 and no longer supported the versions of either arduino or Pure Data that I had. So I shelved the project for a few days and continued with the computer music lectures.</p>
+
+<h3 id="a-change-of-direction">A change of direction</h3>
+
+<p>The inspiration to pick this project back up came while I was looking for a project to do in Rust. I was looking into audio decoding (this was toward the very end of my mp3 decoding project) when I came across <a href="https://github.com/tomaka/cpal">cpal</a>, an audio library in Rust that a few other Recursers had used. Rust being a lower-level language, I felt that there might be a library to process data coming from an arduino. I came across <a href="https://github.com/Susurrus/serialport-rs">serialport-rs</a>, and the theremin was back on.
+With cpal, I have a way to generate a sine wave. With serialport-rs, I have a way to read data from an arduino and print it to my console.</p>
+
+<h3 id="the-bugs">The bugs</h3>
+
+<p>The first issue I ran into was deserializing the arduino data. I could print the data just fine using <code>io::stdout().write_all</code>, but whenever I tried to convert the data to an integer, I would get astronomically high values. The IR sensor usually outputs numbers between 100 and 500, and I was getting values between 3 and 4 million. I was trying both <code>Serial.print</code> and <code>Serial.write</code> in my arduino code. The documentation for <code>Serial.print</code> says that values are sent as their ASCII values and <code>Serial.write</code> says values are sent &ldquo;as a byte or series of bytes&rdquo;.<br />
+At this point, both the serial monitor in the arduino IDE and the output from <code>io::stdout().write_all</code> were showing the correct values, so I decided to print the raw buffer to try and get to the bottom of this. Wouldn&rsquo;t ya know it, <code>Serial.write</code> was just sending the ASCII values of each digit. So instead of reading an array of bytes as an integer, I first needed to convert each byte to a character, concatenate them together, then cast the resulting string to an integer. I must be doing something wrong here, but that&rsquo;s for future me to figure out.</p>
+
+<p>Finally, I had my arduino talking to my computer and my computer listening to the arduino. Time to run my code, wave my hand around and&hellip; hear nothing.</p>
+
+<p>Once the disappointment dissipated, I formed a hypothesis for what was going wrong. See, the way I was generating these samples was by providing a <code>next_sample()</code> function that generated, as you may have guessed, the next sample to play. This is the definition of that function:</p>
+
+<pre><code class="language-Rust">let mut next_value = || {
+    frequency = (port_reader.read_value() + 100) as f32;
+    sample_clock = (sample_clock + 1.0 ) % sample_rate;
+    (2.0 * (sample_clock * frequency * 2.0 * 3.141592 / sample_rate).sin())
+};
+</code></pre>
+
+<p>I&rsquo;m using a sampling rate of 44.1kHz, so this function is getting called 44100 times a second. It&rsquo;s likely that reading the values is taking too long and we&rsquo;re consistently missing the deadline and therefore nothing&rsquo;s being sent to the speaker (I&rsquo;m not sure if this is how the cpal code actually works, but it seems to have given me a workable mental model).<br />
+In an attempt to read values without taking up too much time, I decided to simply read a value every 1000 samples:</p>
+
+<pre><code class="language-Rust">let i = 0;
+let mut next_value = || {
+    i += 1
+    if i % 1000 == 0 {
+        frequency = (port_reader.read_value() + 100) as f32;
+    }
+    sample_clock = (sample_clock + 1.0 ) % sample_rate;
+    (2.0 * (sample_clock * frequency * 2.0 * 3.141592 / sample_rate).sin())
+};
+</code></pre>
+
+<p>This worked to produce audible sound, but another issue quickly popped up: I was now generating a backlog of sensor output. I would move my hand and several seconds would pass before I&rsquo;d hear the pitch change. I needed to throw away samples that weren&rsquo;t going to be used. This problem reminded me of a construct I was familiar with from Golang: buffered channels.<br />
+This was to be my first encounter with Rust&rsquo;s &ldquo;fearless concurrency&rdquo;. Another Recurser pointed me to Rust&rsquo;s version of <a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html">channels</a>. They felt similar to Golang&rsquo;s channels, but different in ways that make sense for Rust. Instead of a function creating and returning a channel for another goroutine to listen to, you create a sender and receiver in one thread and move them around as necessary. I only wanted one thread to send values and another to receive them, so my code ended up looking like this:</p>
+
+<pre><code class="language-rust">let (tx, rx): (SyncSender&lt;i32&gt;, Receiver&lt;i32&gt;) = mpsc::sync_channel(1);
+let mut i = 0;
+
+thread::spawn(move || {
+    loop {
+        if let Ok(_) = tx.try_send(port_reader.read_value()) {
+            continue;
+        }
+    }
+});
+
+let mut next_value = move || {
+    i += 1;
+    if i % 1000 == 0 {
+        if let Ok(val) = rx.recv() {
+            frequency = (val + 100) as f32; 
+        }
+    }
+
+    sample_clock = (sample_clock + 1.0 ) % sample_rate;
+    (2.0 * (sample_clock * frequency * 2.0 * 3.141592 / sample_rate).sin())
+};
+</code></pre>
+
+<p>This is considerably more code just to speed up <code>next_value</code>, so let&rsquo;s <a href="https://www.amazon.com/Break-Down-Stories-FSG-Classics/dp/0374531447">break it down</a>.
+The first line sets up a synchronous channel with a buffer size of one and gets a reader and sender for that channel. Writing to a <code>SyncBuffer</code> will block until the sender can send its value, so instead we call <code>try_send</code>, which will return immediately (with an error) if the buffer is full. This way, we will not clog the pipeline with sensor values and the latency between user movement and the subsequent frequency change will be lower.<br />
+You&rsquo;ll notice that the definitions of both <code>next_value</code> and the anonymous function we pass to the new thread start with the keyword <code>move</code>. This is to move the values that are closed over into each new thread. This has to do with Rust&rsquo;s concept of ownership and borrowing and memory handling and thread safety and all that, which I won&rsquo;t go into. All that&rsquo;s important is that once I added <code>move</code> to <code>next_value</code>, everything worked.</p>
+
+<p>The resulting sound is still <em>very</em> crackly, which suggests that we&rsquo;re reading sensor values too often (and still taking too long to do it). However, if we read any less frequently, then the lag starts to become user un-friendly. Further optimizations will need to be made.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>What I&rsquo;ve got so far sounds nothing like a theremin, but <em>does</em> change the frequency of a wave according to the position of an object relative to a sensor. It&rsquo;s a bit of a stretch to call it a theremin, but it fits the description of &ldquo;thing you wave your hands near and then sound happens&rdquo; which, as far as I&rsquo;m concerned, is the very definition of a theremin.</p>
+
+<p>The arduino setup was simpler than I thought and consisted of connecting one sensor wire to voltage, another to an output pin, and the third to ground. The code, which is below, consisted of reading and printing the value (along with a newline character so I know when one value ends (serialport-rs did not necessarily read one value per call to <code>read()</code>)).
+Here is the final result of my arduino code:</p>
+
+<pre><code class="language-c">const int sensorPin = A0;
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorVal = analogRead(sensorPin);
+  Serial.print(sensorVal);
+  Serial.print(&quot;\n&quot;);
+}
+</code></pre>
+
+<p>It was a lot of fun to do something in Rust that wasn&rsquo;t straight out of the &ldquo;getting started&rdquo; book. It&rsquo;s channels and struct/method setup reminds me of Golang, as well as the preference for &ldquo;skinny interfaces&rdquo; (like having read and write as separate interfaces). It also has <em>explicit</em> inheritance, which I really feel makes code a little more readable.<br />
+Rust also has some features that remind me of scala. This includes types like Result or Option. It also has a similar <code>match</code> construct, which is nice.<br />
+The Rust code is in the project repo, which I&rsquo;ve called <a href="https://github.com/SoryRawyer/theremini">theremini</a>.</p>
+
+<p>Up next: I need to fix the crackling caused by reading from the serial port, as well as add another sensor to control the amplitude. Maybe I&rsquo;ll even try to figure out how to make it sound like a theremin.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written May 4, 2018. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23poststheremini-1%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/matplotlib-gah/">← Installing Matplotlib</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>

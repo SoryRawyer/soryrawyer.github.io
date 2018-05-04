@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://blog.sory.biz/posts/theremini-1/</loc>
+    <lastmod>2018-05-04T10:34:42-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.sory.biz/posts/matplotlib-gah/</loc>
     <lastmod>2018-05-02T01:17:34-04:00</lastmod>
   </url>
@@ -54,13 +59,13 @@
   
   <url>
     <loc>http://blog.sory.biz/posts/</loc>
-    <lastmod>2018-05-02T01:17:34-04:00</lastmod>
+    <lastmod>2018-05-04T10:34:42-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://blog.sory.biz/</loc>
-    <lastmod>2018-05-02T01:17:34-04:00</lastmod>
+    <lastmod>2018-05-04T10:34:42-04:00</lastmod>
     <priority>0</priority>
   </url>
   
