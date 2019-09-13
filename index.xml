@@ -6,10 +6,19 @@
     <description>Recent content on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 May 2018 10:34:42 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 09 Sep 2019 21:41:51 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Interviews I&#39;ve Gone and Done</title>
+      <link>http://blog.sory.biz/posts/interviews-ive-done/</link>
+      <pubDate>Mon, 09 Sep 2019 21:41:51 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/interviews-ive-done/</guid>
+      <description>I&amp;rsquo;ve been a full-time software engineer for about 5 years. I&amp;rsquo;m currently in my second full-time engineering job. I&amp;rsquo;ve interviewed at dozens of companies and have been given about four job offers. Over the last 6 or 7 years I&amp;rsquo;ve come across a lot of interview questions. Sometimes I&amp;rsquo;ve enjoyed the puzzles, sometimes it was like a sentient &amp;ldquo;cracking the coding interview&amp;rdquo; was making fun of me. Some interviews were near-misses (I think) and others made me question my choice of career.</description>
+    </item>
     
     <item>
       <title>Another Tangent: Trying to Make a Theremin</title>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Interviews I&#39;ve Gone and Done</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Interviews I&#39;ve Gone and Done">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Interviews I&#39;ve Gone and Done">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Interviews I&#39;ve Gone and Done">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/interviews-ive-done/">
+	<meta name="og:site_name" content="Interviews I&#39;ve Gone and Done">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Interviews I&#39;ve Gone and Done <aside></aside></h1>
+	
+
+<p>I&rsquo;ve been a full-time software engineer for about 5 years. I&rsquo;m currently in my second full-time engineering job. I&rsquo;ve interviewed at dozens of companies and have been given about four job offers. Over the last 6 or 7 years I&rsquo;ve come across a lot of interview questions. Sometimes I&rsquo;ve enjoyed the puzzles, sometimes it was like a sentient &ldquo;cracking the coding interview&rdquo; was making fun of me. Some interviews were near-misses (I think) and others made me question my choice of career.<br />
+Here is a retrospective of questions that have stood out to me, organized in no particular way and with inconsistent commentary.</p>
+
+<h1 id="questions">Questions</h1>
+
+<p>This first section is about (some of) the questions I&rsquo;ve faced.</p>
+
+<h2 id="real-time-in-person-over-the-phone-video-chat">Real-time (in-person/over the phone/video chat)</h2>
+
+<p>These are questions that I&rsquo;ve been asked in a &ldquo;real-time&rdquo; interview. Things that fall under this category are on-site interviews, phone calls, and video calls.</p>
+
+<h3 id="let-s-talk-about-some-code-they-ve-presented-me-with">let&rsquo;s talk about [some code they&rsquo;ve presented me with]</h3>
+
+<p>This is generally a somewhat recent revision or simplified piece of production code. Through no coincidence, these samples contain entrypoints into a number of different topics. One example is some Python code that handled signals from the operating system. Even though it was Python (i.e. - relatively &ldquo;high-level&rdquo;) code, the interviewer and I still discussed topics like concurrent programming and Linux syscalls.</p>
+
+<h3 id="given-a-service-architecture-you-receive-the-following-alert-insert-alert-here-what-do-you-do">[given a service architecture], you receive the following alert: [insert alert here], what do you do?</h3>
+
+<p>This gave me a chance to demonstrate my troubleshooting (aka &ldquo;firefighting&rdquo;) capabilities. I had everything that I thought a &ldquo;reasonable&rdquo; production system might have at my fingertips. It felt like a choose-your-own-adventure production emergency. Can I look at the logs? Yes, and they say [something potentially useful]. Do we have graphs of response codes? Yes, and here&rsquo;s what it looks like: [jpg of a graph with 5xx errors going up and to the right].<br />
+This probably isn&rsquo;t something you could expect a new grad (bootcamp or bachelors or otherwise) to know, but could hopefully be asked of anyone with more than a year or so of experience. It felt like one of those old text-based RPGs, like adventure.</p>
+
+<h3 id="some-kind-of-sql-question-that-involved-common-table-expressions-but-i-didn-t-get-a-job-offer-so-who-knows-if-it-was-actually-supposed-to-involve-common-table-expressions">Some kind of SQL question that involved common table expressions, but I didn’t get a job offer so who knows if it was actually supposed to involve common table expressions?</h3>
+
+<p>This was something like &ldquo;given a table with columns <code>name</code> and <code>parent_name</code>, find all grandparents&rdquo;. Brutal.<br />
+Of all my interviews, only a small handful actually contained SQL questions. I&rsquo;m a little surprised at how rarely I get asked about SQL in interviews, given how useful it&rsquo;s been to me. I guess it&rsquo;s a little like how companies will include &ldquo;proficiency with the command-line&rdquo; in a job description but will never, ever follow-up on it.</p>
+
+<h3 id="exploring-a-server">Exploring a server</h3>
+
+<p>But some companies do follow up on it! This was basically &ldquo;you&rsquo;re on a server and want to find out ____, how do you do it?&rdquo; While the interviewer asked for specific commands and flags, they could definitely relate when I responded with &ldquo;I don&rsquo;t think I need [random assortment of flags] but it&rsquo;s what I&rsquo;ve always used and it&rsquo;s worked so far&rdquo;</p>
+
+<h3 id="quizzes">Quizzes</h3>
+
+<p>I feel these usually come out when a company tries to come off as having &ldquo;conversational&rdquo; interviews when really it just wants to admit that its interviews are quizzes</p>
+
+<ul>
+<li>What&rsquo;s the difference between an inner and outer join?<br /></li>
+<li>[fill out this table of REST keywords and whether or not they&rsquo;re idempotent (plus some other properties but I can&rsquo;t remember)]<br /></li>
+<li>What&rsquo;s map/reduce?<br /></li>
+</ul>
+
+<h2 id="take-home-exercises">Take-home exercises</h2>
+
+<p>These exercises were typically given to me with the expectation that they&rsquo;d take anywhere between 2 and 10 hours. I inevitably exceeded those time frames.</p>
+
+<p>Take-home exercises have at least one very clear upside: they reduce the anxiety of an interview by making it asynchronous. There&rsquo;s no one looking over your shoulder, interrupting your thought process by peppering you with questions while you&rsquo;re trying to think of variable names.</p>
+
+<p>In my opinion, they also have a less-clear downside: it&rsquo;s harder for interviewers to get feedback on the question. Interviewers will still be able to build up an intuition about how various folks answer a problem, but there&rsquo;s no reliable way to know how long something took to complete. They have no idea how often someone gets hung up on an awkwardly-worded requirement.<br />
+I&rsquo;m not sure I&rsquo;ve ever had a follow-up conversation about a code sample, which is disappointing. Seems like it&rsquo;d be a good opportunity for the applicant to get some useful feedback, and for the hiring team to hopefully learn a bit more about how their questions are being perceived.</p>
+
+<p>With that said, here are some take-home exercises I&rsquo;ve gotten over the years</p>
+
+<h3 id="here-is-some-code-related-to-technical-thing-please-tell-us-how-it-works-and-what-you-might-infer-about-how-we-handle-technical-thing">Here is some code related to [technical thing], please tell us how it works and what you might infer about how we handle [technical thing]</h3>
+
+<p>Similar to the first &ldquo;real-time&rdquo; question, except that this was done without someone looking over my shoulder and also I had to give a little more umprompted feedback. I had to be proactive. At times it felt like writing down certain things and then asking myself &ldquo;am I reading into this too much?&rdquo;</p>
+
+<h3 id="write-a-terraform-script-to-spin-up-an-environment-in-aws-with-components">Write a Terraform script to spin up an environment in AWS with [components]</h3>
+
+<p>I forget what the &ldquo;components&rdquo; were, but the exercise was to see how one would go about writing a Terraform script (configuration? I don&rsquo;t know what the right Terraform name is) to spin up some AWS resources. It was for a DevOps role and, I imagine, very closely mirrored what the role would be like.</p>
+
+<h3 id="write-a-tcp-server-in-scala">Write a TCP server in Scala</h3>
+
+<p>If I recall correctly, the full prompt was to write a server that could listen on a socket and parse messages in a custom protocol built atop TCP. I replied a day later to withdraw my application.</p>
+
+<h1 id="interview-questions-and-process-efforts">Interview questions and process efforts</h1>
+
+<p>I think most people who have ever interviewed, for engineering positions or otherwise, have stories of companies that never replied after an interview, or who strung them along for a while before finally saying no, or whose process was filled with contextless hypotheticals that clearly didn&rsquo;t reflect the kind of work the role required. This section is for two examples of the other end of the spectrum.</p>
+
+<ul>
+<li>Private AWS account
+
+<ul>
+<li>There were limits to what I could do, but at the start of a take-home exercise I was provided a login and allowed to test my code against a real AWS environment. This set the company apart as it was a small company with dedicated and competent AWS administrators. That&rsquo;s not a guarantee, and &ldquo;cloud infrastructure&rdquo; can be absolutely soul-crushing if done without backup.</li>
+</ul></li>
+<li>Slack access
+
+<ul>
+<li>There were limits to what I could do, but I was given access to a private room, DM access to the interview team, and access to the organizations custom Slack emojis.</li>
+<li>The company that did this was almost entirely distributed, so seeing how someone can communicate over Slack was probably a legitimate test of &ldquo;can I work with this person?&rdquo; for them.
+<br /></li>
+</ul></li>
+</ul>
+
+<p>Both of these companies blew me away with how much effort they put into putting their candidate in a practical scenario.</p>
+
+<h1 id="conclusions">conclusions?</h1>
+
+<p>I don&rsquo;t think I&rsquo;m any better at interviewing because of these experiences. The people who&rsquo;ve &ldquo;gotten it right&rdquo;, in my opinion, have been those who set a clear expectation for proficiency in certain areas and test exactly that. I&rsquo;ve also found that I enjoy speaking with interviewers who have seemingly mapped out the decision tree of their questions and can tell when I&rsquo;m on the wrong branch. I might not have gotten the job, but at least I didn&rsquo;t hate myself after the interview. That&rsquo;s a low bar to clear, but not everyone has cleared it.</p>
+
+</div>
+
+
+
+
+	<p><small><em>Written September 9, 2019. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postsinterviews-ive-done%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/theremini-1/">← Another Tangent: Trying to Make a Theremin</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>
