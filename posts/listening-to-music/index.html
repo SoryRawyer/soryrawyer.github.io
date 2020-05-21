@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Listening to Music</title>
+	
+	<meta name="description" content="">
+	<meta name="image" content="">
+	
+	<meta itemprop="name" content="Listening to Music">
+	<meta itemprop="description" content="">
+	<meta itemprop="image" content="">
+	
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Listening to Music">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:site" content="@soryrawyer">
+	<meta name="twitter:creator" content="@soryrawyer">
+	<meta name="twitter:image:src" content="">
+	
+	
+	<meta name="og:title" content="Listening to Music">
+	<meta name="og:description" content="">
+	
+	<meta name="og:url" content="http://blog.sory.biz/posts/listening-to-music/">
+	<meta name="og:site_name" content="Listening to Music">
+	<meta name="og:type" content="article">
+	
+	<meta name="article:author" content="soryrawyer">
+	<meta name="article:tag" content="">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<script src="/js/caption.js"></script>
+</head>
+<body>
+<header >
+	<a href="/" style="float: left;color:#777;"><strong>Sorry, Rawyer</strong>
+	</a>
+<a href="http://blog.sory.biz/about-me/" style="color:#777;"><strong>About Me</strong></a>
+
+</header>
+
+
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
+
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
+
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+    	el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
+
+<div class="content">
+	<h1>Listening to Music <aside></aside></h1>
+	
+
+<p>Two years ago, I set a three-month goal for myself:</p>
+
+<blockquote>
+<p>Coming into the Recurse Center, I thought I’d found a solid project: move my music and videos into cloud storage and create a media player that can move stuff to and from local disk without the user knowing or caring</p>
+</blockquote>
+
+<p>Two years later, I made some progress.</p>
+
+<h1 id="what-and-or-why">what and/or why</h1>
+
+<p>A couple years ago, I had an iPhone and a Macbook and I used iTunes for pretty much all of my &ldquo;owned&rdquo; music. I could use iTunes to move files from my computer to my phone. It was nice and simple and mimicked how I would manage my music in high school, moving files from my computer to my iPod. This was after Spotify became the default music experience for many, and, I think, around the time Apple Music was becoming a Thing.</p>
+
+<p>One day, as I was poking around the iTunes settings on my phone, I did something that replaced all the music on my phone with Apple Music versions of all the tracks. It did so sloppily, and so live versions, alternative versions, demo versions, they were all replaced with whatever Apple Music had. Needless to say, I was pretty bummed. And so, years later, I&rsquo;m finally trying to make amends with my old music library.</p>
+
+<p>ok, now that we&rsquo;ve got some context, let&rsquo;s define some requirements! I would like something that can:</p>
+
+<ul>
+<li>store files remotely and make them accessible across devices (i.e. - a computer and a phone)</li>
+<li>allow me to browse the files in a somewhat user-friendly way</li>
+<li>cache files locally for offline use</li>
+<li>does some kind of metadata fill-in/standardization</li>
+</ul>
+
+<h1 id="comb">&ldquo;comb&rdquo;</h1>
+
+<p>Comb (working title) is my latest attempt at this project. Here are the components as of this post:</p>
+
+<p><img src="../../static/comb-overview-simple.png" alt="outline of how the cli and webapp work" /></p>
+
+<p>There are two main components: a command-line tool and a web application.</p>
+
+<h2 id="command-line-tool">command-line tool</h2>
+
+<p>The CLI currently has only one job to do: ingest. This program accepts a file path as input. If the path is a directory, the directory is recursively traversed. For each audio file found, comb will:</p>
+
+<ul>
+<li>read some of the metadata (ID3 tags, vorbis comments, etc)</li>
+<li>try to standardize artist, release, and track names, among other things, by using the <a href="https://www.discogs.com/developers">Discogs API</a></li>
+<li>write the metadata to a database (postgres, in this case)</li>
+<li>write the file to Google Cloud Storage (GCS)</li>
+</ul>
+
+<h2 id="web-app">web app</h2>
+
+<p>The web application is also fairly simple. There is a server with some basic endpoints like <code>/artists</code> and <code>/releases/&lt;int:release_id&gt;</code>.</p>
+
+<p>The frontend lists available artists, releases, and tracks, and when you double click on a track name, the audio player at the top will load that song. That last bit of functionality is handled using <a href="https://cloud.google.com/storage/docs/access-control/signed-urls">signed GCS URLs</a>. These, in combination with <a href="https://cloud.google.com/storage/docs/configuring-cors">GCS CORS</a> configuration, allow our frontend to stream audio files from GCS without requiring the frontend to have any kind of Google Cloud credentials.</p>
+
+<p>Since this application lets users download as much data as they want from a GCS bucket I&rsquo;m being charged for, I use <a href="https://flask-login.readthedocs.io/en/latest/">flask-login</a> for authentication.</p>
+
+<h2 id="deployment">deployment</h2>
+
+<p>Aside from the functionality listed above, a goal of this project is to learn. As such, I&rsquo;ve decided to try and get more experience with tools and technologies I seldom use, either for work or otherwise. This includes breaking down the duopoly of AWS and GCP (sorry Azure) by running my services on Digital Ocean. Instead of Github or Gitlab, I chose to store my code on <a href="https://sourcehut.org/">Sourcehut</a>. I wrote some HTML, CSS, and Javascript for the first time since 2015.</p>
+
+<p>I also used <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> for the first time (via <a href="https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx">Certbot</a>), and it was incredibly easy to use.</p>
+
+<p>However, there was only so much new territory I could cover. The server and CLI are written in Python, the server uses Flask and runs under gunicorn, and is &ldquo;deployed&rdquo; via rsync.</p>
+
+<p>Also, I did a lot of this work while on vacation, and responsible devops just feels too much like work. Eventually I&rsquo;ll get my web app running under either systemd or supervisor, but right now it&rsquo;s running because I ssh&rsquo;d into the server, ran <code>./run.sh &amp;</code>, and logged out. I don&rsquo;t know what else might be on the horizon, infrastructure-wise.</p>
+
+<h1 id="the-future">the future</h1>
+
+<p>There are a number of programming areas that this project could provide a way into: Electron, web assembly, running &ldquo;on prem&rdquo; instead of &ldquo;in the cloud&rdquo;, but I think my next step will be to learn some Kotlin and try putting together an Android application. After all, the whole point of this is to be able to move files from my computer to my phone.</p>
+
+<p>I also hope this project will help me break out of the Spotify haze that my music listening has fallen into. While working on this project, I felt a connection to the music I chose to listen to that I hadn&rsquo;t felt in years. I could feel my engagement shift from passive consumption to active listening. As I continue to work on Comb, I hope I get to understand that feeling a little better and strengthen my connection to the artists whose work I enjoy so often.</p>
+
+<p>code: <a href="https://git.sr.ht/~rory/comb">https://git.sr.ht/~rory/comb</a></p>
+
+</div>
+
+
+
+
+	<p><small><em>Written May 20, 2020. </em>
+		 
+		Send feedback to <a  href="https://twitter.com/intent/tweet?text=%40soryrawyer%20%23postslistening-to-music%20">@soryrawyer</a>.
+		
+	</small></p>
+
+	<p>
+	<a href="/posts/interviews-ive-done/">← Interviews I&#39;ve Gone and Done</a>&nbsp;
+	
+	</p>
+
+
+
+
+
+
+<footer>
+</footer>
+</body>
+</html>
