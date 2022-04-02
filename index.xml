@@ -6,10 +6,19 @@
     <description>Recent content on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 May 2020 16:42:27 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 02 Apr 2022 13:05:43 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Type Theory Resources for the Layprogrammer</title>
+      <link>http://blog.sory.biz/posts/type-theory-resources/</link>
+      <pubDate>Sat, 02 Apr 2022 13:05:43 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/type-theory-resources/</guid>
+      <description>Over the last few years, I&amp;rsquo;ve tried getting into type theory. I even thought I would apply to Ph.D. programs for a while. I ultimately didn&amp;rsquo;t, and while I was figuring that out I spent a lot of time struggling to grasp what type theory actually is. Even once I had some kind of clue, I struggled a lot with jargon, new symbols, and learning some useful background knowledge. About that last point: I realize one might not need to know set theory to understand type theory, but I found it useful.</description>
+    </item>
     
     <item>
       <title>Listening to Music</title>
