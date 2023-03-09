@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Apr 2022 13:05:43 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 09 Mar 2023 09:24:56 -0500</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Generating SQL from Python</title>
+      <link>http://blog.sory.biz/posts/python-to-sql/</link>
+      <pubDate>Thu, 09 Mar 2023 09:24:56 -0500</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/python-to-sql/</guid>
+      <description>I&amp;rsquo;ve wanted to get more experience writing programs that analyze programs, and after using Prisma schema I decided to try writing a program to convert a Python dataclass to a SQL schema.
+At the time, I was starting up a project to extract and load Philadelphia city data into my own database. In the early stages of the project, I found myself toiling through &amp;ldquo;drop, recreate, rehydrate&amp;rdquo; cycles of rebuilding my tables and &amp;ldquo;rehydrating&amp;rdquo; my local db with test data.</description>
+    </item>
     
     <item>
       <title>Type Theory Resources for the Layprogrammer</title>
