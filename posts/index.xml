@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Sorry, Rawyer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Mar 2023 09:24:56 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 13 Apr 2023 09:47:10 -0400</lastBuildDate>
     
 	<atom:link href="http://blog.sory.biz/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Writing a Dropbox Cli in Python with Click</title>
+      <link>http://blog.sory.biz/posts/dropbox-cli-python/</link>
+      <pubDate>Thu, 13 Apr 2023 09:47:10 -0400</pubDate>
+      
+      <guid>http://blog.sory.biz/posts/dropbox-cli-python/</guid>
+      <description>I recently decided to lean into using Dropbox as my designated location for long-term storage. I use Joplin for note-taking and I like the way it uses my own Dropbox account to sync data between devices. Since I&amp;rsquo;ve found myself in a kind of accidental sabbatical, I started writing a command-line interface for Dropbox to keep myself busy. I didn&amp;rsquo;t plan on writing anything more than glue code, but once I got started I found it fairly easy to stay engaged with the work.</description>
+    </item>
     
     <item>
       <title>Generating SQL from Python</title>
